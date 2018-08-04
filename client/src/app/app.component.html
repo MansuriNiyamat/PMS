@@ -2,13 +2,23 @@
   <div class="container">
     <div id="navbar-main">
       <ul class="nav navbar-nav">
-        <li><h3>Project Management System</h3></li>
+        <li>
+          <h3>Project Management System</h3>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-          <li><a routerLink="/">Home</a></li>
-        <li *ngIf="!auth.isLoggedIn()"><a routerLink="/login">Sign in</a></li>
-        <li *ngIf="auth.isLoggedIn()"><a routerLink="/profile">{{ auth.getUserDetails()?.name }}</a></li>
-        <li *ngIf="auth.isLoggedIn()"><a (click)="auth.logout()">Logout</a></li>
+        <li>
+          <a routerLink="/">Home</a>
+        </li>
+        <li *ngIf="!auth.isLoggedIn()">
+          <a routerLink="/login">Sign in</a>
+        </li>
+        <li *ngIf="auth.isLoggedIn()">
+          <a routerLink="/profile">{{ auth.getUserDetails()?.name }}</a>
+        </li>
+        <li *ngIf="auth.isLoggedIn()">
+          <a (click)="auth.logout()">Logout</a>
+        </li>
       </ul>
     </div>
   </div>

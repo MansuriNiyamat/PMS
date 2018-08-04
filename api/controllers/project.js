@@ -9,8 +9,6 @@ var Stories = mongoose.model('Stories');
 module.exports.create = function (req, res) {
 
   if (req.body.type === 'project') {
-    console.log("++++++create/project+++++");
-    console.log(req.body.payload);
     var project = new Project();
     var payload = req.body.payload;
     project.name = payload.name;
@@ -28,10 +26,6 @@ module.exports.create = function (req, res) {
     });
   }
   else if (req.body.type === 'stories') {
-    console.log(req.body);
-
-    console.log("+++++create/stories++++++");
-    console.log(req.body.payload);
     var stories = new Stories();
     var payload = req.body.payload;
     stories.name = payload.name;
@@ -39,10 +33,10 @@ module.exports.create = function (req, res) {
     stories.priority = payload.priority;
     stories.p_Id = payload.p_Id;
 
-    stories.save(function(err, resp) {
+    stories.save(function (err, resp) {
       res.status(200);
       res.json({
-        "message" : 'Stories add Sucessfully',
+        "message": 'Stories add Sucessfully',
         "flag": true,
         "resp": resp
       });
@@ -51,7 +45,6 @@ module.exports.create = function (req, res) {
 };
 
 module.exports.update = function (req, res) {
-  console.log(req.body.payload);
   var payload = req.body.payload;
   var temp;
   temp.name = payload.name;
@@ -77,46 +70,39 @@ module.exports.update = function (req, res) {
 
 
 module.exports.read = function (req, res) {
-  console.log("++++++read+++++");
-
-  console.log(req.headers)
   var header = req.headers;
-  console.log(header);
   if (header.type == 'project') {
-    console.log("inside project")
     Project
       .find()
       .exec(function (err, resp) {
         res.status(200).json(resp);
       });
-  } else if (header.type == 'stories'){
-    console.log("inside stories")
+  } else if (header.type == 'stories') {
     Stories
-    .find({ p_Id: header.id})
-    .exec(function (err, resp) {
-      res.status(200).json(resp);
-    });
+      .find({ p_Id: header.id })
+      .exec(function (err, resp) {
+        res.status(200).json(resp);
+      });
   }
 
 };
 
 module.exports.delete = function (req, res) {
-  console.log("++++++delete+++++");
   var header = req.headers;
   if (header.type === 'project') {
-   Project
-      .remove({_id:header.id})
-      .exec(function(err, resp) {
+    Project
+      .remove({ _id: header.id })
+      .exec(function (err, resp) {
         res.status(200).json(resp);
       });
-  } else if (header.type === 'stories'){
+  } else if (header.type === 'stories') {
     Stories
-    .remove({_id:header.id})
-    .exec(function(err, resp) {
-      res.status(200).json(resp);
-    });
+      .remove({ _id: header.id })
+      .exec(function (err, resp) {
+        res.status(200).json(resp);
+      });
   }
- 
+
 };
 
 

@@ -9,7 +9,7 @@ import { DataService, Message } from '../data.service';
 export class ProfileComponent implements OnInit {
   details: UserDetails;
 
-  constructor(private auth: AuthenticationService, private Service: DataService) {}
+  constructor(private auth: AuthenticationService, private Service: DataService) { }
 
   ngOnInit() {
     this.auth.profile().subscribe(user => {

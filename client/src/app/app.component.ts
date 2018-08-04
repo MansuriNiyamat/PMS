@@ -6,5 +6,5 @@ import { AuthenticationService } from './authentication.service';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
-  constructor(public auth: AuthenticationService) {}
+  constructor(public auth: AuthenticationService) { }
 }

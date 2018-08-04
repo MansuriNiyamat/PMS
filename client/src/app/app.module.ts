@@ -9,13 +9,13 @@ import { ProfileComponent } from './profile/profile.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
-import { ProjectComponent} from './project/project.component';
-import { StoriesComponent} from './stories/stories.component';
+import { ProjectComponent } from './project/project.component';
+import { StoriesComponent } from './stories/stories.component';
 
 
 import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
-import { DataService} from './data.service';
+import { DataService } from './data.service';
 
 
 const routes: Routes = [

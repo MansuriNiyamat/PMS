@@ -16,13 +16,13 @@ export class ProjectComponent implements OnInit {
   };
 
   project = {
-      name: '',
-      description: '',
-      owner: '',
-      date: '',
+    name: '',
+    description: '',
+    owner: '',
+    date: '',
   };
 
-btnFlag = true;
+  btnFlag = true;
   constructor(private Service: DataService) { }
 
   ngOnInit() {
@@ -34,7 +34,7 @@ btnFlag = true;
 
     this.message.payload = this.project;
     this.Service.create(this.message).subscribe((res) => {
-    //  console.log(res);
+      //  console.log(res);
       this.list();
     }, (err) => {
       console.error(err);
@@ -45,7 +45,7 @@ btnFlag = true;
     this.message.operation = 'read';
 
     this.Service.read(this.message).subscribe(res => {
-    //  console.log(res);
+      //  console.log(res);
       this.projectList = res;
     }, (err) => {
       console.error(err);
@@ -54,9 +54,9 @@ btnFlag = true;
 
   delete(data: any) {
     this.message.operation = 'delete';
-    this.message.payload = {id : data._id};
+    this.message.payload = { id: data._id };
     this.Service.delete(this.message).subscribe(res => {
-     // console.log(res);
+      // console.log(res);
       this.list();
     }, (err) => {
       console.error(err);
