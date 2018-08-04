@@ -1,0 +1,58 @@
+<div class="jumbotron jumbotron-fluid">
+        <span><h3>Project Name : {{Service.currentProject.name}}</h3> </span>
+
+        <div class="container-fluid">
+               
+       <div class="row ">
+           
+            <div class="col-md-2">
+                    <h3>New Stories</h3>
+                <form>
+                  <div class="form-group" >
+                    <label for="name">Stories Title</label>
+                    <input type="text" class="form-control" name="name" placeholder="Enter Stories Title" [(ngModel)]="stories.name">            
+                  </div>
+                  <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" rows="5" id="discription" name="description"  placeholder="Enter Stories Description" [(ngModel)]="stories.description"></textarea>
+                  </div>
+                  <div class="form-group">
+                        <label for="priority">Priority</label>
+                        <select class="form-control" name="priority" id="priority" (change) = "functionname($event)" [(ngModel)]="stories.priority">
+                          <option value="high">High</option>
+                          <option value="medium" selected>Medium</option>
+                          <option value="low" >Low</option>
+                        </select>
+                      </div>
+                 
+                  <button type="submit" (click)="register()"  class="btn btn-primary">Create</button>
+                  <!-- <button type="submit" *ngIf="!btnFlag" (click)="edited()" class="btn btn-primary">Edit</button>
+                   <button type="submit" (click)="clear()" *ngIf="!btnFlag"  class="btn btn-primary">Cancel</button>  -->
+        
+                </form>
+            </div>
+            <div class="col-md-8" *ngIf="storiesList.length > 0">
+                    <table class="table" >
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col">Stories Title</th>
+                          <th scope="col">Priority</th>
+                          <th scope="col">Delete</th>
+              
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let item of storiesList" >
+                          <td (click)="storiesClick(item)">{{item.name}}</td>
+                          <td>{{item.priority}}</td>
+                          <td><a (click)="delete(item)">delete</a></td> 
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+      
+          </div>
+    </div>
+    </div>
+      
+    

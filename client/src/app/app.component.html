@@ -1,10 +1,11 @@
-<div class="navbar navbar-default">
+<div class="navbar">
   <div class="container">
     <div id="navbar-main">
       <ul class="nav navbar-nav">
-        <li><a routerLink="/">Home</a></li>
+        <li><h3>Project Management System</h3></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+          <li><a routerLink="/">Home</a></li>
         <li *ngIf="!auth.isLoggedIn()"><a routerLink="/login">Sign in</a></li>
         <li *ngIf="auth.isLoggedIn()"><a routerLink="/profile">{{ auth.getUserDetails()?.name }}</a></li>
         <li *ngIf="auth.isLoggedIn()"><a (click)="auth.logout()">Logout</a></li>

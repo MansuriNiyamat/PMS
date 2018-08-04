@@ -10,9 +10,13 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ProjectComponent} from './project/project.component';
+import { StoriesComponent} from './stories/stories.component';
+
 
 import { AuthenticationService } from './authentication.service';
 import { AuthGuardService } from './auth-guard.service';
+import { DataService} from './data.service';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -28,7 +32,8 @@ const routes: Routes = [
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    ProjectComponent
+    ProjectComponent,
+    StoriesComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +43,8 @@ const routes: Routes = [
   ],
   providers: [
     AuthenticationService,
-    AuthGuardService
+    AuthGuardService,
+    DataService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,40 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AuthenticationService, UserDetails } from '../authentication.service';
 import { DataService, Message } from '../data.service';
 
 @Component({
-  selector: 'app-project',
-  templateUrl: './project.component.html'
+  selector: 'app-stories',
+  templateUrl: './stories.component.html'
 })
-export class ProjectComponent implements OnInit {
-  details: UserDetails;
-  projectList = [];
+export class StoriesComponent implements OnInit, AfterViewInit {
+
+  constructor(private Service: DataService) { }
+    storiesList = [];
   message: Message = {
     payload: '',
     operation: '',
-    type: 'project',
+    type: 'stories',
   };
 
-  project = {
-      name: '',
-      description: '',
-      owner: '',
-      date: '',
+  stories = {
+    name: '',
+    description: '',
+    priority: '',
+    p_Id: ''
   };
-
-btnFlag = true;
-  constructor(private Service: DataService) { }
 
   ngOnInit() {
+
+  }
+  ngAfterViewInit() {
     this.list();
   }
   register() {
     // console.log(this.message);
     this.message.operation = 'create';
-
-    this.message.payload = this.project;
+    this.stories.p_Id = this.Service.currentProject._id;
+    this.message.payload = this.stories;
     this.Service.create(this.message).subscribe((res) => {
-    //  console.log(res);
+     console.log(res);
       this.list();
     }, (err) => {
       console.error(err);
@@ -43,10 +44,10 @@ btnFlag = true;
 
   list() {
     this.message.operation = 'read';
-
+    this.message.payload = {id: this.Service.currentProject._id};
     this.Service.read(this.message).subscribe(res => {
     //  console.log(res);
-      this.projectList = res;
+      this.storiesList = res;
     }, (err) => {
       console.error(err);
     });
@@ -62,13 +63,9 @@ btnFlag = true;
       console.error(err);
     });
   }
+  functionname(data: any) {
+    //  this.list();
+    this.stories.priority = data.target.value;
+  }
 
-  projectClick(item: any) {
-    this.Service.currentProject = item;
-    this.Service.fProject = false;
-    this.Service.fStories = true;
-  }
-  clear() {
-    this.btnFlag = true;
-  }
 }
