@@ -50,9 +50,9 @@
                         </select>
                     </div>
 
-                    <button type="submit" (click)="register()" class="btn btn-primary">Create</button>
-                    <!-- <button type="submit" *ngIf="!btnFlag" (click)="edited()" class="btn btn-primary">Edit</button>
-                   <button type="submit" (click)="clear()" *ngIf="!btnFlag"  class="btn btn-primary">Cancel</button>  -->
+                    <button type="submit"  *ngIf="btnFlag" (click)="register()" class="btn btn-primary">Create</button>
+                    <button type="submit" *ngIf="!btnFlag" (click)="update()" class="btn btn-primary">Edit</button>
+                   <button type="submit" (click)="clear()" *ngIf="!btnFlag"  class="btn btn-primary">Cancel</button> 
 
                 </form>
             </div>
@@ -80,7 +80,7 @@
                             <td>{{item.start}}</td>
                             <td>{{item.status}}</td>
                             <td>
-                                <a (click)="delete(item)">edit</a>
+                                <a (click)="edit(item)">edit</a>
                             </td>
                             <td>
                                 <a (click)="delete(item)">delete</a>

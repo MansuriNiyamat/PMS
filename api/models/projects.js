@@ -40,7 +40,6 @@ var storiesSchema = new mongoose.Schema({
 var taskSchema = new mongoose.Schema({
   name: {
     type: String,
-    unique: true,
     required: true
   },
   description: {

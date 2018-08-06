@@ -17,6 +17,8 @@ export class DataService {
   fProject: Boolean = true;
   fStories: Boolean = false;
   fTask: Boolean = false;
+  fInit: Boolean = false;
+
 
   currentProject: any;
   currentStories: any;
@@ -52,6 +54,9 @@ export class DataService {
   public read(message: Message): Observable<any> {
     return this.request('get', 'read', message);
   }
+  public update(message: Message): Observable<any> {
+    return this.request('put', 'update', message);
+  }
   public delete(message: Message): Observable<any> {
     return this.request('delete', 'delete', message);
   }
@@ -61,6 +66,8 @@ export class DataService {
     //  let box = {message: message};
     if (method === 'post') {
       base = this.http.post(`/api/${type}`, message);
+    } else if (method === 'put') {
+      base = this.http.put(`/api/${type}`, message );
     } else if (method === 'get' && message.type !== 'project') {
       base = this.http.get(`/api/${type}`, { headers: { type: message.type, id: message.payload.id } });
     } else if (method === 'get') {

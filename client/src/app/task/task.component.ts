@@ -25,9 +25,10 @@ export class TaskComponent implements OnInit, AfterViewInit {
         start: '',
         status: '',
         s_Id: '',
-        p_Id: ''
+        p_Id: '',
+        _id: ''
     };
-
+    btnFlag = true;
     ngOnInit() {
 
     }
@@ -69,11 +70,50 @@ export class TaskComponent implements OnInit, AfterViewInit {
             console.error(err);
         });
     }
+    edit(data: any) {
+       // this.task = data;
+       this.task.name = data.name;
+       this.task.description = data.description;
+       this.task.priority = data.priority;
+
+       this.task.owner = data.owner;
+       this.task.hours = data.hours;
+       this.task.start = data.start;
+       this.task.status = data.status;
+       this.task.s_Id = data.s_Id;
+       this.task.p_Id = data.p_Id;
+       this.task._id = data._id;
+
+       this.btnFlag = false;
+    }
+    update() {
+        this.message.operation = 'update';
+        this.message.payload = this.task;
+
+        this.Service.update(this.message).subscribe(res => {
+            // console.log(res);
+            this.list();
+        }, (err) => {
+            console.error(err);
+        });
+        this.clear();
+    }
     priority(data: any) {
         this.task.priority = data.target.value;
     }
     status(data: any) {
         this.task.status = data.target.value;
     }
+    clear() {
+        this.task.name = '';
+        this.task.description = '';
+        this.task.owner = '';
+        this.task.hours = '';
+        this.task.start = '';
+        this.task.status = '';
+        this.task.s_Id = '';
+        this.task.p_Id = '';
+        this.btnFlag = true;
+      }
 
 }

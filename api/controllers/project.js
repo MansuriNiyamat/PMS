@@ -23,7 +23,8 @@ module.exports.create = function (req, res) {
       res.json({
         "message": 'Project add Sucessfully',
         "flag": true,
-        "resp": resp
+        "response": resp,
+        'error':err
       });
     });
   }
@@ -40,7 +41,8 @@ module.exports.create = function (req, res) {
       res.json({
         "message": 'Stories add Sucessfully',
         "flag": true,
-        "resp": resp
+        "response": resp,
+        'error':err
       });
     });
   }
@@ -61,7 +63,8 @@ module.exports.create = function (req, res) {
       res.json({
         "message": 'Task add Sucessfully',
         "flag": true,
-        "resp": resp
+        "response": resp,
+        'error':err
       });
     });
   }
@@ -69,26 +72,33 @@ module.exports.create = function (req, res) {
 
 module.exports.update = function (req, res) {
   var payload = req.body.payload;
-  var temp;
-  temp.name = payload.name;
-  temp.description = payload.description;
-  temp.owner = payload.owner;
-  temp.date = payload.date;
+  console.log('+++from Update+++');
+  console.log(payload)
+  
 
-  Project
-    .update({ _id: payload._id }, {
-      $set: {
-        name: payload.name,
-        description: payload.description,
-        owner: payload.owner,
-        date: payload.date
-      }
+  Task
+    .update({"_id": payload._id},
+
+    {
+      "name" : payload.name,
+      "description" : payload.description,
+      "priority" : payload.priority,
+      "owner" : payload.owner,
+      "hours" : payload.hours,
+      "start" : payload.start,
+      "status" : payload.status
     }).exec(
       function (err, resp) {
-        console.log(resp);
-        res.status(200).json(resp);
+        console.log(err);
+        res.status(200).json({
+          "message": 'Task updated Sucessfully',
+          "flag": true,
+          "response": resp,
+          'error':err
+        });
       });
 };
+
 
 
 
@@ -122,20 +132,35 @@ module.exports.delete = function (req, res) {
     Project
       .remove({ _id: header.id })
       .exec(function (err, resp) {
-        res.status(200).json(resp);
+        res.status(200).json({
+          "message": 'project deleted Sucessfully',
+          "flag": true,
+          "response": resp,
+          'error':err
+        });
       });
   } else if (header.type === 'stories') {
     Stories
       .remove({ _id: header.id })
       .exec(function (err, resp) {
-        res.status(200).json(resp);
+        res.status(200).json({
+          "message": 'stories deleted Sucessfully',
+          "flag": true,
+          "response": resp,
+          'error':err
+        });
       });
   }
   else if (header.type === 'task') {
     Task
       .remove({ _id: header.id })
       .exec(function (err, resp) {
-        res.status(200).json(resp);
+        res.status(200).json({
+          "message": 'task deleted Sucessfully',
+          "flag": true,
+          "response": resp,
+          'error':err
+        });
       });
   }
 
