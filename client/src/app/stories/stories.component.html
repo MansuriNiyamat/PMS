@@ -1,4 +1,4 @@
-<div class="jumbotron jumbotron-fluid">
+<div class="jumbotron jumbotron-fluid" *ngIf="Service.fStories">
     <span>
         <h3>Project Name : {{Service.currentProject.name}}</h3>
     </span>
@@ -54,7 +54,7 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
     </div>
 </div>
+<app-task *ngIf="Service.fTask"></app-task>

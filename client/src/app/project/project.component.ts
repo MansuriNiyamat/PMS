@@ -47,6 +47,7 @@ export class ProjectComponent implements OnInit {
     this.Service.read(this.message).subscribe(res => {
       //  console.log(res);
       this.projectList = res;
+    //  this.Service.currentProject = res[0];
     }, (err) => {
       console.error(err);
     });
@@ -65,8 +66,8 @@ export class ProjectComponent implements OnInit {
 
   projectClick(item: any) {
     this.Service.currentProject = item;
-    this.Service.fProject = false;
-    this.Service.fStories = true;
+    this.Service.fInit = true;
+    this.Service.sFlagOn();
   }
   clear() {
     this.btnFlag = true;

@@ -11,6 +11,8 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ProjectComponent } from './project/project.component';
 import { StoriesComponent } from './stories/stories.component';
+import { TaskComponent} from './task/task.component';
+
 
 
 import { AuthenticationService } from './authentication.service';
@@ -33,7 +35,8 @@ const routes: Routes = [
     RegisterComponent,
     HomeComponent,
     ProjectComponent,
-    StoriesComponent
+    StoriesComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,

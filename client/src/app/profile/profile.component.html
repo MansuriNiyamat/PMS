@@ -5,6 +5,9 @@
         <li>
           <a (click)="Service.pFlagOn()">Project</a>
         </li>
+        <li>
+          <a *ngIf="Service.fTask" (click)="Service.sFlagOn()">Stories</a>
+        </li>
       </ul>
     </div>
   </div>

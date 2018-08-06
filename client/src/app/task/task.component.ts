@@ -2,25 +2,29 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AuthenticationService, UserDetails } from '../authentication.service';
 import { DataService, Message } from '../data.service';
 
-
 @Component({
-    selector: 'app-stories',
-    templateUrl: './stories.component.html'
+    selector: 'app-task',
+    templateUrl: './task.component.html'
 })
-export class StoriesComponent implements OnInit, AfterViewInit {
+export class TaskComponent implements OnInit, AfterViewInit {
 
     constructor(private Service: DataService) { }
-    storiesList = [];
+    taskList = [];
     message: Message = {
         payload: '',
         operation: '',
-        type: 'stories',
+        type: 'task',
     };
 
-    stories = {
+    task = {
         name: '',
         description: '',
         priority: '',
+        owner: '',
+        hours: '',
+        start: '',
+        status: '',
+        s_Id: '',
         p_Id: ''
     };
 
@@ -33,8 +37,9 @@ export class StoriesComponent implements OnInit, AfterViewInit {
     register() {
         // console.log(this.message);
         this.message.operation = 'create';
-        this.stories.p_Id = this.Service.currentProject._id;
-        this.message.payload = this.stories;
+        this.task.p_Id = this.Service.currentProject._id;
+        this.task.s_Id = this.Service.currentStories._id;
+        this.message.payload = this.task;
         this.Service.create(this.message).subscribe((res) => {
             console.log(res);
             this.list();
@@ -45,11 +50,10 @@ export class StoriesComponent implements OnInit, AfterViewInit {
 
     list() {
         this.message.operation = 'read';
-        this.message.payload = { id: this.Service.currentProject._id };
+        this.message.payload = { id: this.Service.currentStories._id };
         this.Service.read(this.message).subscribe(res => {
             //  console.log(res);
-            this.storiesList = res;
-       //     this.Service.currentStories = res[0];
+            this.taskList = res;
         }, (err) => {
             console.error(err);
         });
@@ -65,13 +69,11 @@ export class StoriesComponent implements OnInit, AfterViewInit {
             console.error(err);
         });
     }
-    storiesClick(item: any) {
-        this.Service.currentStories = item;
-        this.Service.tFlagOn();
-      }
-    functionname(data: any) {
-        //  this.list();
-        this.stories.priority = data.target.value;
+    priority(data: any) {
+        this.task.priority = data.target.value;
+    }
+    status(data: any) {
+        this.task.status = data.target.value;
     }
 
 }

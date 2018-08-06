@@ -16,25 +16,33 @@ export class DataService {
 
   fProject: Boolean = true;
   fStories: Boolean = false;
+  fTask: Boolean = false;
+
   currentProject: any;
+  currentStories: any;
+  currentTask: any;
+
+
 
   constructor(private http: HttpClient, private router: Router) { }
 
   public pFlagOn() {
     this.fProject = true;
-    this.sFlagOff();
-  }
+    this.fStories = false;
+    this.fTask = false;
 
-  public pFlagOff() {
-    this.fProject = false;
   }
 
   public sFlagOn() {
+    this.fProject = false;
     this.fStories = true;
+    this.fTask = false;
   }
 
-  public sFlagOff() {
+  public tFlagOn() {
+    this.fProject = false;
     this.fStories = false;
+    this.fTask = true;
   }
 
   public create(message: Message): Observable<any> {
@@ -53,7 +61,7 @@ export class DataService {
     //  let box = {message: message};
     if (method === 'post') {
       base = this.http.post(`/api/${type}`, message);
-    } else if (method === 'get' && message.type === 'stories') {
+    } else if (method === 'get' && message.type !== 'project') {
       base = this.http.get(`/api/${type}`, { headers: { type: message.type, id: message.payload.id } });
     } else if (method === 'get') {
       base = this.http.get(`/api/${type}`, { headers: { type: message.type } });

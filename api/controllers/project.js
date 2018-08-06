@@ -3,6 +3,8 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Project = mongoose.model('Project');
 var Stories = mongoose.model('Stories');
+var Task = mongoose.model('Task');
+
 
 
 
@@ -37,6 +39,27 @@ module.exports.create = function (req, res) {
       res.status(200);
       res.json({
         "message": 'Stories add Sucessfully',
+        "flag": true,
+        "resp": resp
+      });
+    });
+  }
+  else if (req.body.type === 'task') {
+    var task = new Task();
+    var payload = req.body.payload;
+    task.name = payload.name;
+    task.description = payload.description;
+    task.priority = payload.priority;
+    task.owner = payload.owner;
+    task.hours = payload.hours;
+    task.start = payload.start;
+    task.status = payload.status;
+    task.s_Id = payload.s_Id;
+    task.p_Id = payload.p_Id;
+    task.save(function (err, resp) {
+      res.status(200);
+      res.json({
+        "message": 'Task add Sucessfully',
         "flag": true,
         "resp": resp
       });
@@ -83,6 +106,12 @@ module.exports.read = function (req, res) {
       .exec(function (err, resp) {
         res.status(200).json(resp);
       });
+  } else if (header.type == 'task') {
+    Task
+      .find({ s_Id: header.id })
+      .exec(function (err, resp) {
+        res.status(200).json(resp);
+      });
   }
 
 };
@@ -97,6 +126,13 @@ module.exports.delete = function (req, res) {
       });
   } else if (header.type === 'stories') {
     Stories
+      .remove({ _id: header.id })
+      .exec(function (err, resp) {
+        res.status(200).json(resp);
+      });
+  }
+  else if (header.type === 'task') {
+    Task
       .remove({ _id: header.id })
       .exec(function (err, resp) {
         res.status(200).json(resp);
